@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/css/main.css">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <!-- header -->
+        <header class="header">
+            <h1 class="title">Weather Dashboard</h1>
+        </header>
+
+        <!-- header end -->
+
+        <!-- main -->
+        <main class="main-section">
+            <!-- left container -->
+            <div class="left-container">
+                <form action="#" id="form">
+                    <label for="search">Search for a city:</label><br>
+                    <input type="text" name="search" id="search" class="search">
+                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                </form>
+
+                <!-- city search container -->
+                <div class="city-search">
+                    <li class="city">austin</li>
+                </div>
+            </div>
+
+            <!-- left container end -->
+
+            <!-- right container -->
+            <div class="right-container">
+                <!-- display city -->
+                <div class="display-city">
+                    <h3 class="sub-head">austin <span class="current-date">(date)</span></h3>
+
+                    <div class="current-weather">
+                        <p class="para temp">Temperature: 89</p>
+                        <p class="para humidity">Humidity: 40%</p>
+                        <p class="para wind-speed">Wind Speed: 4.7 MPH</p>
+                        <p class="para uv-index">UV Index: <span>9.49</span></p>
+                    </div>
+                </div>
+
+                <!-- display city end -->
+                <div class="forecast-container">
+                    <h3 class="sub-head">5-Day Forecast:</h3>
+
+                    <div class="five-day-weather">
+                        <div class="daily-weather">
+                            <h3 class="date">1/20/2021</h3>
+                            <p class="icon">[icon]</p>
+                            <p class="f-temp">Temp: 66</p>
+                            <p class="f-humidity">Humidity: 40%</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- right container ends -->
+        </main>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- script -->
+    <script src="https://kit.fontawesome.com/0cb0e7b636.js" crossorigin="anonymous"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
