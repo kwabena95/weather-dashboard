@@ -16,7 +16,7 @@ body {
 
 .container {
   width: 60%;
-  height: 70vh;
+  height: 73vh;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 3px 3px 10px #c5c5c5;
@@ -34,9 +34,7 @@ body {
 .container .main-section {
   width: 100%;
   height: 60vh;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 2fr;
   grid-template-columns: 1fr 2fr;
 }
 .container .main-section .left-container {
@@ -94,9 +92,7 @@ body {
 .container .main-section .right-container {
   margin-left: 10px;
   padding: 10px;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: (1fr)[2];
   grid-template-rows: repeat(2, 1fr);
 }
 .container .main-section .right-container .display-city {
@@ -130,6 +126,8 @@ body {
   width: 100%;
   height: 90%;
   padding: 0, 1rem;
+  display: flex;
+  flex-direction: row;
 }
 .container .main-section .right-container .forecast-container .five-day-weather .daily-weather {
   width: 150px;

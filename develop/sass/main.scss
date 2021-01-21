@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap');
 @import '_variables';
-@import '_media-queries';
 
 *{
     padding: 0;
@@ -18,7 +17,7 @@ body{
 }
 .container{
     width: 60%;
-    height: 70vh;
+    height: 73vh;
     border-radius: 10px;
     padding: 1rem;
     box-shadow: $box-shadow;
@@ -144,7 +143,6 @@ body{
             // forecast container
             .forecast-container{
                 margin-top: 1rem;
-
                 // sub-head
                 .sub-head{
                     margin-bottom: 10px;
@@ -153,6 +151,8 @@ body{
                     width: 100%;
                     height: 90%;
                     padding: 0, 1rem;
+                    display: flex;
+                    flex-direction: row;
 
                     // daily waether
                     .daily-weather{
@@ -176,3 +176,6 @@ body{
         }
     }
 }
+
+// media queries
+@import '_media-queries';
