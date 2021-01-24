@@ -110,11 +110,12 @@ body {
   text-transform: capitalize;
   font-size: 15px;
 }
-.container .main-section .right-container .display-city .para span {
+.container .main-section .right-container .display-city .uv-index {
   background-color: #dc3545;
   padding: 10px;
   border-radius: 5px;
   color: #fff;
+  margin-left: 5px;
 }
 .container .main-section .right-container .forecast-container {
   margin-top: 1rem;
@@ -131,14 +132,11 @@ body {
 }
 .container .main-section .right-container .forecast-container .five-day-weather .daily-weather {
   width: 150px;
-  height: 200px;
+  height: 250px;
   background-color: #067cfa;
   padding: 1rem;
   color: #fff;
   border-radius: 5px;
-}
-.container .main-section .right-container .forecast-container .five-day-weather .daily-weather .icon {
-  margin: 1.5rem 0;
 }
 .container .main-section .right-container .forecast-container .five-day-weather .daily-weather .date, .container .main-section .right-container .forecast-container .five-day-weather .daily-weather .f-temp, .container .main-section .right-container .forecast-container .five-day-weather .daily-weather .f-humidity {
   margin-bottom: 10px;

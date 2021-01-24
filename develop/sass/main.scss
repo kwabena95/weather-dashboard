@@ -131,13 +131,17 @@ body{
                     text-transform: capitalize;
                     font-size: 15px;
 
-                    span{
-                        background-color: $UV-index;
-                        padding: 10px;
-                        border-radius: 5px;
-                        color: #fff;
-                    }
                 }
+                
+                .uv-index{
+                    background-color: $UV-index;
+                    padding: 10px;
+                    border-radius: 5px;
+                    color: #fff;
+                    margin-left: 5px;
+                }
+                
+              
             }
 
             // forecast container
@@ -157,15 +161,15 @@ body{
                     // daily waether
                     .daily-weather{
                         width: 150px;
-                        height: 200px;
+                        height: 250px;
                         background-color: $accent-clr;
                         padding: 1rem;
                         color: #fff;
                         border-radius: 5px;
 
-                        .icon{
-                            margin: 1.5rem 0;
-                        }
+                        // .icon{
+                        //     margin: 10px 0;
+                        // }
 
                         .date, .f-temp, .f-humidity{
                             margin-bottom: 10px;

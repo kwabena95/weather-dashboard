@@ -3,6 +3,9 @@ const form = document.querySelector('#form');
 const cityContainer = document.querySelector('.city-search');
 const city = document.querySelector('.city');
 const search = document.querySelector('#search');
+const fiveDay = document.querySelector('.five-day-weather');
+const currentWeather = document.querySelector('.current-weather');
+const para = document.querySelector('.uv-red');
 let cities = [];
 // add Event listener
 form.addEventListener('submit', (e) => {
@@ -20,7 +23,6 @@ function fetchRequest() {
     const temp = document.querySelector('.temp');
     const humidity = document.querySelector('.humidity');
     const windSpeed = document.querySelector('.wind-speed');
-    const uvIndex = document.querySelector('.uv-index');
     const head = document.querySelector('.sub-head');
 
     // current date
@@ -42,15 +44,41 @@ function fetchRequest() {
     const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
 
     fetch(currentWeatherURL).then(res => {
+        let longitude, latitude;
         res.json().then(data => {
             head.textContent = searchValue;
             head.textContent += cDate;
             temp.textContent = `Temperature: ${data.main.temp}`;
             humidity.textContent = `Humidity: ${data.main.humidity}`;
             windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
-            uvIndex.textContent = `UV Index: ${data.wind.speed} [Not uv value]`;
+            longitude = data.coord.lon;
+            latitude = data.coord.lat;
 
-        });
+            // get uv index
+            const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`
+
+            fetch(uvIndexURL).then(res => res.json())
+                .then(data => {
+                    const uvIndex = document.createElement('span');
+                    uvIndex.classList.add('uv-index');
+                    uvIndex.innerHTML = data.current.uvi;
+                    para.textContent = 'UV Index:';
+                    para.appendChild(uvIndex)
+                })
+        }).catch(error => {
+            const errorMsg = document.createElement('p');
+            errorMsg.style.color = '#dc3545';
+            errorMsg.textContent = `Search name "${searchValue}" was not found.`;
+            errorMsg.style.fontSize = '1.3rem';
+            fiveDay.appendChild(errorMsg);
+
+            // remove error message after 3 seconds
+            setTimeout(() => errorMsg.remove(), 3000);
+
+
+        })
+
+
     });
 
     weeklyForecast(searchValue);
@@ -60,13 +88,12 @@ function fetchRequest() {
 
 // 5 day forecast
 function weeklyForecast(search) {
-    // UI elements
-    const fiveDay = document.querySelector('.five-day-weather');
 
     const weeklyWeatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${search}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
 
     fetch(weeklyWeatherURL).then(res => {
         res.json().then(data => {
+
 
             for (let i = 0; i < data.list.length; i += 8) {
                 let div = document.createElement('div');
@@ -79,9 +106,11 @@ function weeklyForecast(search) {
                 date.textContent = data.list[i].dt_txt;
                 div.appendChild(date);
 
-                const icon = document.createElement('p');
+                const icon = document.createElement('img');
+                weatherIcon = data.list[0].weather[0].icon;
+                icon.setAttribute('src', ` http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
                 icon.classList.add('icon')
-                icon.textContent = data.list[0].weather[0].icon;
+
                 div.appendChild(icon);
 
                 const temp = document.createElement('p');
@@ -100,6 +129,7 @@ function weeklyForecast(search) {
     // clear out div
     fiveDay.innerHTML = '';
 };
+
 
 // save search
 function saveSearch(search) {
