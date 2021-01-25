@@ -16,12 +16,12 @@ body{
     font-family: 'Raleway', sans-serif;
 }
 .container{
-    width: 60%;
+    width: 70%;
     height: 73vh;
     border-radius: 10px;
     padding: 1rem;
     box-shadow: $box-shadow;
-
+    overflow: hidden;
     // header
     .header{
         width: 100%;
@@ -43,6 +43,8 @@ body{
 
         // left container
         .left-container{
+            max-width: 100%;
+            max-height: 100%;
             background-color: $li-bg;
             padding: 10px;
 
@@ -88,12 +90,13 @@ body{
             // city search
             .city-search{
                 width: 100%;
-                height: 85%;
+                max-height: 70%;
                 margin-top: 10px;
                 background-color: #fff;
                 box-shadow: $box-shadow;
                 border-radius: 10px;
                 padding: 10px;
+                overflow-y: hidden;
 
                 // cities
                 .city{
@@ -103,6 +106,16 @@ body{
                     padding: 10px;
                     border-bottom: 1px solid #f4f4f4;
                     margin-bottom: 10px;
+                    transition: background-color .2s;
+
+                    &:hover{
+                        background-color: rgb(248, 248, 248);
+                    }
+
+                    a{
+                        text-decoration: none;
+                        color: #000;
+                    }
                 }
             }
         }
@@ -112,7 +125,7 @@ body{
             margin-left: 10px;
             padding: 10px;
             display: grid;
-            grid-template-rows: repeat(2, 1fr);
+            grid-template-rows: 260px 1fr;
 
             // display city
             .display-city{
@@ -134,10 +147,9 @@ body{
                 }
                 
                 .uv-index{
-                    background-color: $UV-index;
+                    // background-color: $UV-index;
                     padding: 10px;
                     border-radius: 5px;
-                    color: #fff;
                     margin-left: 5px;
                 }
                 
@@ -147,6 +159,7 @@ body{
             // forecast container
             .forecast-container{
                 margin-top: 1rem;
+                overflow: hidden;
                 // sub-head
                 .sub-head{
                     margin-bottom: 10px;

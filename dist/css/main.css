@@ -15,11 +15,12 @@ body {
 }
 
 .container {
-  width: 60%;
+  width: 70%;
   height: 73vh;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 3px 3px 10px #c5c5c5;
+  overflow: hidden;
 }
 .container .header {
   width: 100%;
@@ -38,6 +39,8 @@ body {
   grid-template-columns: 1fr 2fr;
 }
 .container .main-section .left-container {
+  max-width: 100%;
+  max-height: 100%;
   background-color: #f8f9fa;
   padding: 10px;
 }
@@ -74,12 +77,13 @@ body {
 }
 .container .main-section .left-container .city-search {
   width: 100%;
-  height: 85%;
+  max-height: 70%;
   margin-top: 10px;
   background-color: #fff;
   box-shadow: 3px 3px 10px #c5c5c5;
   border-radius: 10px;
   padding: 10px;
+  overflow-y: hidden;
 }
 .container .main-section .left-container .city-search .city {
   list-style: none;
@@ -88,12 +92,20 @@ body {
   padding: 10px;
   border-bottom: 1px solid #f4f4f4;
   margin-bottom: 10px;
+  transition: background-color 0.2s;
+}
+.container .main-section .left-container .city-search .city:hover {
+  background-color: #f8f8f8;
+}
+.container .main-section .left-container .city-search .city a {
+  text-decoration: none;
+  color: #000;
 }
 .container .main-section .right-container {
   margin-left: 10px;
   padding: 10px;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 260px 1fr;
 }
 .container .main-section .right-container .display-city {
   width: 100%;
@@ -111,14 +123,13 @@ body {
   font-size: 15px;
 }
 .container .main-section .right-container .display-city .uv-index {
-  background-color: #dc3545;
   padding: 10px;
   border-radius: 5px;
-  color: #fff;
   margin-left: 5px;
 }
 .container .main-section .right-container .forecast-container {
   margin-top: 1rem;
+  overflow: hidden;
 }
 .container .main-section .right-container .forecast-container .sub-head {
   margin-bottom: 10px;

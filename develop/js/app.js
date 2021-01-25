@@ -1,46 +1,48 @@
 // UI Elements
 const form = document.querySelector('#form');
 const cityContainer = document.querySelector('.city-search');
-const city = document.querySelector('.city');
 const search = document.querySelector('#search');
 const fiveDay = document.querySelector('.five-day-weather');
 const currentWeather = document.querySelector('.current-weather');
 const para = document.querySelector('.uv-red');
+const temp = document.querySelector('.temp');
+const humidity = document.querySelector('.humidity');
+const windSpeed = document.querySelector('.wind-speed');
+const head = document.querySelector('.sub-head');
 let cities = [];
+
 // add Event listener
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-
-
-
     fetchRequest();
-    getSearch()
+});
 
-})
 
+// current date
+const date = new Date();
+const month = date.getMonth() + 1;
+const day = date.getDate();
+const year = date.getFullYear();
+const cDate = ` (${month}/${day}/${year})`;
+
+
+// fetch request
 function fetchRequest() {
-    // UI elements
-    const temp = document.querySelector('.temp');
-    const humidity = document.querySelector('.humidity');
-    const windSpeed = document.querySelector('.wind-speed');
-    const head = document.querySelector('.sub-head');
-
-    // current date
-    const date = new Date();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const cDate = ` (${month}/${day}/${year})`;
 
     // get search input
     const searchValue = search.value;
     const city = document.createElement('li');
+    const link = document.createElement('a');
+    link.setAttribute('href', '#')
+    city.appendChild(link)
     city.classList.add('city')
-    city.textContent += searchValue;
-    cityContainer.appendChild(city);
+    link.textContent += searchValue;
+    cityContainer.prepend(city);
     search.value = '';
 
-    // fetch request
+
+
+    // weather url
     const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
 
     fetch(currentWeatherURL).then(res => {
@@ -54,7 +56,7 @@ function fetchRequest() {
             longitude = data.coord.lon;
             latitude = data.coord.lat;
 
-            // get uv index
+            // uv index url
             const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`
 
             fetch(uvIndexURL).then(res => res.json())
@@ -63,7 +65,26 @@ function fetchRequest() {
                     uvIndex.classList.add('uv-index');
                     uvIndex.innerHTML = data.current.uvi;
                     para.textContent = 'UV Index:';
-                    para.appendChild(uvIndex)
+                    para.appendChild(uvIndex);
+
+                    let uvIndicator = parseInt(uvIndex.textContent);
+                    if (uvIndicator >= 0 && uvIndicator <= 2) {
+                        uvIndex.style.background = 'green';
+                        uvIndex.style.color = 'white';
+                    } else if (uvIndicator >= 3 && uvIndicator <= 5) {
+                        uvIndex.style.background = 'yellow';
+                        uvIndex.style.color = 'black';
+                    }
+                    else if (uvIndicator >= 6 && uvIndicator <= 7) {
+                        uvIndex.style.background = '#FF4F00';
+                        uvIndex.style.color = 'white';
+                    } else if (uvIndicator >= 8 && uvIndicator <= 10) {
+                        uvIndex.style.background = '#FF2100';
+                        uvIndex.style.color = 'white';
+                    } else {
+                        uvIndex.style.background = '#932FCF';
+                        uvIndex.style.color = 'white';
+                    }
                 })
         }).catch(error => {
             const errorMsg = document.createElement('p');
@@ -74,11 +95,7 @@ function fetchRequest() {
 
             // remove error message after 3 seconds
             setTimeout(() => errorMsg.remove(), 3000);
-
-
-        })
-
-
+        });
     });
 
     weeklyForecast(searchValue);
@@ -89,11 +106,11 @@ function fetchRequest() {
 // 5 day forecast
 function weeklyForecast(search) {
 
+    // forecast url
     const weeklyWeatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${search}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
 
     fetch(weeklyWeatherURL).then(res => {
         res.json().then(data => {
-
 
             for (let i = 0; i < data.list.length; i += 8) {
                 let div = document.createElement('div');
@@ -153,9 +170,79 @@ function getSearch() {
         cities = [];
     } else {
         cities = JSON.parse(getCities);
+
+        // loop through cities array
+        cities.forEach(searchCity => {
+            const city = document.createElement('li');
+            const link = document.createElement('a');
+            city.appendChild(link);
+            link.setAttribute('href', '#');
+            city.classList.add('city');
+            link.textContent += searchCity;
+            cityContainer.prepend(city);
+
+            // add a click event for user to return back to previous searches
+            link.addEventListener('click', () => {
+                const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
+
+                fetch(currentWeatherURL).then(res => {
+                    let longitude, latitude;
+                    res.json().then(data => {
+                        head.textContent = searchCity;
+                        head.textContent += cDate;
+                        temp.textContent = `Temperature: ${data.main.temp}`;
+                        humidity.textContent = `Humidity: ${data.main.humidity}`;
+                        windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
+                        longitude = data.coord.lon;
+                        latitude = data.coord.lat;
+
+                        // get uv index
+                        const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`
+
+                        fetch(uvIndexURL).then(res => res.json())
+                            .then(data => {
+                                const uvIndex = document.createElement('span');
+                                uvIndex.classList.add('uv-index');
+                                uvIndex.innerHTML = data.current.uvi;
+                                para.textContent = 'UV Index:';
+                                para.appendChild(uvIndex);
+
+                                let uvIndicator = parseInt(uvIndex.textContent);
+                                if (uvIndicator >= 0 && uvIndicator <= 2) {
+                                    uvIndex.style.background = 'green';
+                                    uvIndex.style.color = 'white';
+                                } else if (uvIndicator >= 3 && uvIndicator <= 5) {
+                                    uvIndex.style.background = 'yellow';
+                                    uvIndex.style.color = 'black';
+                                }
+                                else if (uvIndicator >= 6 && uvIndicator <= 7) {
+                                    uvIndex.style.background = '#FF4F00';
+                                    uvIndex.style.color = 'white';
+                                } else if (uvIndicator >= 8 && uvIndicator <= 10) {
+                                    uvIndex.style.background = '#FF2100';
+                                    uvIndex.style.color = 'white';
+                                } else {
+                                    uvIndex.style.background = '#932FCF';
+                                    uvIndex.style.color = 'white';
+                                }
+                            });
+                    });
+
+                });
+
+                weeklyForecast(searchCity);
+
+            });
+
+        });
+
     }
 
 }
+// run
+getSearch();
+
+
 
 
 
