@@ -33,20 +33,21 @@ function fetchRequest() {
     const searchValue = search.value;
     const city = document.createElement('li');
     const link = document.createElement('a');
-    link.setAttribute('href', '#')
-    city.appendChild(link)
-    city.classList.add('city')
+    link.setAttribute('href', '#');
+    city.appendChild(link);
+    city.classList.add('city');
     link.textContent += searchValue;
     cityContainer.prepend(city);
     search.value = '';
 
 
 
-    // weather url
+    // current weather url
     const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=6b23f6fe88ff8a8f7321d2e253c96454&units=imperial`;
 
     fetch(currentWeatherURL).then(res => {
         let longitude, latitude;
+
         res.json().then(data => {
             head.textContent = searchValue;
             head.textContent += cDate;
@@ -56,8 +57,15 @@ function fetchRequest() {
             longitude = data.coord.lon;
             latitude = data.coord.lat;
 
+            // current weather icon
+            const currentIcon = data.weather[0].icon;
+            const currentWeatherImage = document.createElement('img');
+            currentWeatherImage.classList.add('icon');
+            currentWeatherImage.setAttribute('src', ` http://openweathermap.org/img/wn/${currentIcon}.png`);
+            head.appendChild(currentWeatherImage);
+
             // uv index url
-            const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`
+            const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`;
 
             fetch(uvIndexURL).then(res => res.json())
                 .then(data => {
@@ -116,28 +124,28 @@ function weeklyForecast(search) {
                 let div = document.createElement('div');
                 div.classList.add('daily-weather');
                 div.style.marginRight = '10px';
-                fiveDay.appendChild(div)
+                fiveDay.appendChild(div);
 
                 const date = document.createElement('h3');
                 date.classList.add('date');
-                date.textContent = data.list[i].dt_txt;
+                date.textContent = data.list[i].dt_txt.slice(0, 11);
                 div.appendChild(date);
 
                 const icon = document.createElement('img');
                 weatherIcon = data.list[0].weather[0].icon;
                 icon.setAttribute('src', ` http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
-                icon.classList.add('icon')
+                icon.classList.add('icon');
 
                 div.appendChild(icon);
 
                 const temp = document.createElement('p');
-                temp.classList.add('f-temp')
+                temp.classList.add('f-temp');
                 temp.textContent = `Temp: ${data.list[i].main.temp}`;
-                div.appendChild(temp)
+                div.appendChild(temp);
                 const humidity = document.createElement('p');
-                humidity.classList.add('f-humidity')
-                humidity.textContent = `Humidity: ${data.list[i].main.humidity}`
-                div.appendChild(humidity)
+                humidity.classList.add('f-humidity');
+                humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
+                div.appendChild(humidity);
                 fiveDay.appendChild(div);
             }
         });
@@ -195,6 +203,13 @@ function getSearch() {
                         windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
                         longitude = data.coord.lon;
                         latitude = data.coord.lat;
+
+                        // current weather icon
+                        const currentIcon = data.weather[0].icon;
+                        const currentWeatherImage = document.createElement('img');
+                        currentWeatherImage.classList.add('icon');
+                        currentWeatherImage.setAttribute('src', ` http://openweathermap.org/img/wn/${currentIcon}.png`);
+                        head.appendChild(currentWeatherImage);
 
                         // get uv index
                         const uvIndexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=6b23f6fe88ff8a8f7321d2e253c96454`

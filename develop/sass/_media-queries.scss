@@ -1,0 +1,29 @@
+
+@media screen and (max-width: 850px){
+   .container{
+       width: 100%;
+   }
+   .main-section{
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(2, 1fr);
+   grid-template-rows: repeat(3, 1fr);
+   }
+   .left-container{
+      grid-column: 1 / 3;
+   }
+   .right-container{
+       grid-column: 1 /3;
+   }
+}
+
+
+@media screen and (min-width: 500px){
+    .container{
+        width: 100%;
+    }
+    .daily-weather{
+        margin-bottom: 20px;
+    }
+  
+}

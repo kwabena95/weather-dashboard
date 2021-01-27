@@ -12,16 +12,13 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin:6rem 0;
     font-family: 'Raleway', sans-serif;
 }
 .container{
-    width: 70%;
-    height: 73vh;
-    border-radius: 10px;
+    width: 80%;
+    height: 100vh;
     padding: 1rem;
-    box-shadow: $box-shadow;
-    overflow: hidden;
+
     // header
     .header{
         width: 100%;
@@ -37,16 +34,17 @@ body{
     // main section
     .main-section{
         width: 100%;
-        height: 60vh;
+        height: 100%;
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 400px 2fr;
 
         // left container
         .left-container{
-            max-width: 100%;
-            max-height: 100%;
-            background-color: $li-bg;
-            padding: 10px;
+           width: 100%;
+           height: 100%;
+           background-color: $li-bg;
+           padding: 10px;
+        
 
             // form
             label{
@@ -55,7 +53,7 @@ body{
             .search{
                 width: 80%;
                 padding: 8px 1rem;
-                margin-top: 10px;
+                margin: 1rem 0;
                 border: none;
                 outline: none;
                 border-radius: 5px;
@@ -68,7 +66,7 @@ body{
 
             // button
             .btn-search{
-                width: 50px;
+                width: 150px;
                 height: 35px;
                 border: none;
                 outline: none;
@@ -90,13 +88,11 @@ body{
             // city search
             .city-search{
                 width: 100%;
-                max-height: 70%;
-                margin-top: 10px;
+                margin-top: 15px;
                 background-color: #fff;
                 box-shadow: $box-shadow;
                 border-radius: 10px;
                 padding: 10px;
-                overflow-y: hidden;
 
                 // cities
                 .city{
@@ -126,6 +122,7 @@ body{
             padding: 10px;
             display: grid;
             grid-template-rows: 260px 1fr;
+          
 
             // display city
             .display-city{
@@ -147,7 +144,6 @@ body{
                 }
                 
                 .uv-index{
-                    // background-color: $UV-index;
                     padding: 10px;
                     border-radius: 5px;
                     margin-left: 5px;
@@ -159,30 +155,29 @@ body{
             // forecast container
             .forecast-container{
                 margin-top: 1rem;
-                overflow: hidden;
+              
                 // sub-head
                 .sub-head{
-                    margin-bottom: 10px;
+                    margin-bottom: 20px;
                 }
                 .five-day-weather{
                     width: 100%;
-                    height: 90%;
+                    height: auto;
                     padding: 0, 1rem;
                     display: flex;
                     flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
 
                     // daily waether
                     .daily-weather{
-                        width: 150px;
+                        width: 270px;
                         height: 250px;
                         background-color: $accent-clr;
                         padding: 1rem;
                         color: #fff;
                         border-radius: 5px;
 
-                        // .icon{
-                        //     margin: 10px 0;
-                        // }
 
                         .date, .f-temp, .f-humidity{
                             margin-bottom: 10px;
