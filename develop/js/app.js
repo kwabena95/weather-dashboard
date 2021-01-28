@@ -51,7 +51,7 @@ function fetchRequest() {
         res.json().then(data => {
             head.textContent = searchValue;
             head.textContent += cDate;
-            temp.textContent = `Temperature: ${data.main.temp}`;
+            temp.textContent = `Temperature: ${data.main.temp}<strong>&#8457;</strong>`;
             humidity.textContent = `Humidity: ${data.main.humidity}`;
             windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
             longitude = data.coord.lon;
@@ -128,7 +128,11 @@ function weeklyForecast(search) {
 
                 const date = document.createElement('h3');
                 date.classList.add('date');
-                date.textContent = data.list[i].dt_txt.slice(0, 11);
+                // get only the date and replace the dash with forward lash
+                let newDate = data.list[i].dt_txt.slice(0, 11).replace(/-/g, '/');
+                // format the date to (MM/DD/YYYY)
+                let dateFormat = newDate.split('/').sort((a, b) => a - b).join('/');
+                date.textContent = dateFormat;
                 div.appendChild(date);
 
                 const icon = document.createElement('img');
