@@ -51,9 +51,9 @@ function fetchRequest() {
         res.json().then(data => {
             head.textContent = searchValue;
             head.textContent += cDate;
-            temp.textContent = `Temperature: ${data.main.temp}<strong>&#8457;</strong>`;
-            humidity.textContent = `Humidity: ${data.main.humidity}`;
-            windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
+            temp.textContent = `Temperature: ${data.main.temp} F`;
+            humidity.textContent = `Humidity: ${data.main.humidity}%`;
+            windSpeed.textContent = `Wind Speed: ${data.wind.speed} MPH`;
             longitude = data.coord.lon;
             latitude = data.coord.lat;
 
@@ -99,7 +99,7 @@ function fetchRequest() {
             errorMsg.style.color = '#dc3545';
             errorMsg.textContent = `Search name "${searchValue}" was not found.`;
             errorMsg.style.fontSize = '1.3rem';
-            fiveDay.appendChild(errorMsg);
+            currentWeather.appendChild(errorMsg);
 
             // remove error message after 3 seconds
             setTimeout(() => errorMsg.remove(), 3000);
@@ -144,11 +144,11 @@ function weeklyForecast(search) {
 
                 const temp = document.createElement('p');
                 temp.classList.add('f-temp');
-                temp.textContent = `Temp: ${data.list[i].main.temp}`;
+                temp.textContent = `Temp: ${data.list[i].main.temp} F`;
                 div.appendChild(temp);
                 const humidity = document.createElement('p');
                 humidity.classList.add('f-humidity');
-                humidity.textContent = `Humidity: ${data.list[i].main.humidity}`;
+                humidity.textContent = `Humidity: ${data.list[i].main.humidity}%`;
                 div.appendChild(humidity);
                 fiveDay.appendChild(div);
             }
@@ -202,9 +202,9 @@ function getSearch() {
                     res.json().then(data => {
                         head.textContent = searchCity;
                         head.textContent += cDate;
-                        temp.textContent = `Temperature: ${data.main.temp}`;
-                        humidity.textContent = `Humidity: ${data.main.humidity}`;
-                        windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
+                        temp.textContent = `Temperature: ${data.main.temp} F`;
+                        humidity.textContent = `Humidity: ${data.main.humidity}%`;
+                        windSpeed.textContent = `Wind Speed: ${data.wind.speed} MPH`;
                         longitude = data.coord.lon;
                         latitude = data.coord.lat;
 
